@@ -20,3 +20,19 @@ def start():
     print(" 3. Exit\n")
 
     select = int(input("Enter your choice : "))
+
+    if (select in [1,2,3]):
+
+        if(select == 1):
+            run_PE()
+            choice = input("Do you want to search again? (y/n)")
+            if(choice not in ['Y','N','n','y']):
+                print("Bad input\nExiting...")
+                time.sleep(3)
+                exit()
+            else:
+                if(choice == 'Y' or 'y'):
+                    start()
+                elif(choice == 'N' or 'n'):
+                    exit()
+         
