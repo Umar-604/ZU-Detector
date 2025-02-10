@@ -11,3 +11,12 @@ def run_URL():
 
 def exit():
     os.system('exit')
+
+def start():
+    print(pyfiglet.figlet_format("ZU Detector"))
+    print(" Welcome to antimalware detector \n")
+    print(" 1. PE scanner")
+    print(" 2. URL scanner")
+    print(" 3. Exit\n")
+
+    select = int(input("Enter your choice : "))
