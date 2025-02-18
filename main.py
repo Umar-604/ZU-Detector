@@ -48,4 +48,5 @@ def start():
                     start()
                 else:
                     exit()
-                    
+    else:
+            exit()
