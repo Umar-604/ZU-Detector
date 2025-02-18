@@ -50,3 +50,9 @@ def start():
                         exit()
         else:
                 exit()
+    else:
+        print("Bad input\nExiting...")
+        time.sleep(3)
+        exit()
+
+start()
