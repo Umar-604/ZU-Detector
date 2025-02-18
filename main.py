@@ -36,3 +36,16 @@ def start():
                 elif(choice == 'N' or 'n'):
                     exit()
          
+    elif(select == 2):
+            run_URL()
+            choice = input("Do you want to search again? (y/n)")
+            if(choice not in ['Y','N','n','y']):
+                print("Bad input\nExiting...")
+                time.sleep(3)
+                exit()
+            else:
+                if(choice == 'Y' or 'y'):
+                    start()
+                else:
+                    exit()
+                    
