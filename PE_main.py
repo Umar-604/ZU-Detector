@@ -108,3 +108,18 @@ def extract_infos(fpath):
     res['SizeOfHeapCommit'] = pe.OPTIONAL_HEADER.SizeOfHeapCommit
     res['LoaderFlags'] = pe.OPTIONAL_HEADER.LoaderFlags
     res['NumberOfRvaAndSizes'] = pe.OPTIONAL_HEADER.NumberOfRvaAndSizes
+
+    # Sections
+    res['SectionsNb'] = len(pe.sections)
+    entropy = list(map(lambda x: x.get_entropy(), pe.sections))
+    res['SectionsMeanEntropy'] = sum(entropy) / float(len(entropy))
+    res['SectionsMinEntropy'] = min(entropy)
+    res['SectionsMaxEntropy'] = max(entropy)
+    raw_sizes = list(map(lambda x: x.SizeOfRawData, pe.sections))
+    res['SectionsMeanRawsize'] = sum(raw_sizes) / float(len(raw_sizes))
+    res['SectionsMinRawsize'] = min(raw_sizes)
+    res['SectionsMaxRawsize'] = max(raw_sizes)
+    virtual_sizes = list(map(lambda x: x.Misc_VirtualSize, pe.sections))
+    res['SectionsMeanVirtualsize'] = sum(virtual_sizes) / float(len(virtual_sizes))
+    res['SectionsMinVirtualsize'] = min(virtual_sizes)
+    res['SectionMaxVirtualsize'] = max(virtual_sizes)
