@@ -161,3 +161,17 @@ def extract_infos(fpath):
         res['ResourcesMeanSize'] = 0
         res['ResourcesMinSize'] = 0
         res['ResourcesMaxSize'] = 0
+
+    # Load configuration size
+    try:
+        res['LoadConfigurationSize'] = pe.DIRECTORY_ENTRY_LOAD_CONFIG.struct.Size
+    except AttributeError:
+        res['LoadConfigurationSize'] = 0
+
+    # Version configuration size
+    try:
+        version_infos = get_version_info(pe)
+        res['VersionInformationSize'] = len(version_infos.keys())
+    except AttributeError:
+        res['VersionInformationSize'] = 0
+    return res
