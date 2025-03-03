@@ -140,3 +140,24 @@ def extract_infos(fpath):
         res['ExportNb'] = len(pe.DIRECTORY_ENTRY_EXPORT.symbols)
     except AttributeError:
         res['ExportNb'] = 0
+
+    # Resources
+    resources = get_resources(pe)
+    res['ResourcesNb'] = len(resources)
+    if len(resources) > 0:
+        entropy = list(map(lambda x: x[0], resources))
+        res['ResourcesMeanEntropy'] = sum(entropy) / float(len(entropy))
+        res['ResourcesMinEntropy'] = min(entropy)
+        res['ResourcesMaxEntropy'] = max(entropy)
+        sizes = list(map(lambda x: x[1], resources))
+        res['ResourcesMeanSize'] = sum(sizes) / float(len(sizes))
+        res['ResourcesMinSize'] = min(sizes)
+        res['ResourcesMaxSize'] = max(sizes)
+    else:
+        res['ResourcesNb'] = 0
+        res['ResourcesMeanEntropy'] = 0
+        res['ResourcesMinEntropy'] = 0
+        res['ResourcesMaxEntropy'] = 0
+        res['ResourcesMeanSize'] = 0
+        res['ResourcesMinSize'] = 0
+        res['ResourcesMaxSize'] = 0
