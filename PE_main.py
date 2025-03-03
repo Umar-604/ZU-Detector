@@ -45,3 +45,26 @@ def get_resources(pe):
         except Exception as e:
             return resources
     return resources
+
+
+# For getting the version information
+def get_version_info(pe):
+    """Return version infos"""
+    res = {}
+    for fileinfo in pe.FileInfo:
+        if fileinfo.Key == 'StringFileInfo':
+            for st in fileinfo.StringTable:
+                for entry in st.entries.items():
+                    res[entry[0]] = entry[1]
+        if fileinfo.Key == 'VarFileInfo':
+            for var in fileinfo.Var:
+                res[var.entry.items()[0][0]] = var.entry.items()[0][1]
+    if hasattr(pe, 'VS_FIXEDFILEINFO'):
+        res['flags'] = pe.VS_FIXEDFILEINFO.FileFlags
+        res['os'] = pe.VS_FIXEDFILEINFO.FileOS
+        res['type'] = pe.VS_FIXEDFILEINFO.FileType
+        res['file_version'] = pe.VS_FIXEDFILEINFO.FileVersionLS
+        res['product_version'] = pe.VS_FIXEDFILEINFO.ProductVersionLS
+        res['signature'] = pe.VS_FIXEDFILEINFO.Signature
+        res['struct_version'] = pe.VS_FIXEDFILEINFO.StrucVersion
+    return res
