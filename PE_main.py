@@ -68,3 +68,43 @@ def get_version_info(pe):
         res['signature'] = pe.VS_FIXEDFILEINFO.Signature
         res['struct_version'] = pe.VS_FIXEDFILEINFO.StrucVersion
     return res
+
+
+# Extract the info for a given file using pefile
+def extract_infos(fpath):
+    res = {}
+    pe = pefile.PE(fpath)
+    res['Machine'] = pe.FILE_HEADER.Machine
+    res['SizeOfOptionalHeader'] = pe.FILE_HEADER.SizeOfOptionalHeader
+    res['Characteristics'] = pe.FILE_HEADER.Characteristics
+    res['MajorLinkerVersion'] = pe.OPTIONAL_HEADER.MajorLinkerVersion
+    res['MinorLinkerVersion'] = pe.OPTIONAL_HEADER.MinorLinkerVersion
+    res['SizeOfCode'] = pe.OPTIONAL_HEADER.SizeOfCode
+    res['SizeOfInitializedData'] = pe.OPTIONAL_HEADER.SizeOfInitializedData
+    res['SizeOfUninitializedData'] = pe.OPTIONAL_HEADER.SizeOfUninitializedData
+    res['AddressOfEntryPoint'] = pe.OPTIONAL_HEADER.AddressOfEntryPoint
+    res['BaseOfCode'] = pe.OPTIONAL_HEADER.BaseOfCode
+    try:
+        res['BaseOfData'] = pe.OPTIONAL_HEADER.BaseOfData
+    except AttributeError:
+        res['BaseOfData'] = 0
+    res['ImageBase'] = pe.OPTIONAL_HEADER.ImageBase
+    res['SectionAlignment'] = pe.OPTIONAL_HEADER.SectionAlignment
+    res['FileAlignment'] = pe.OPTIONAL_HEADER.FileAlignment
+    res['MajorOperatingSystemVersion'] = pe.OPTIONAL_HEADER.MajorOperatingSystemVersion
+    res['MinorOperatingSystemVersion'] = pe.OPTIONAL_HEADER.MinorOperatingSystemVersion
+    res['MajorImageVersion'] = pe.OPTIONAL_HEADER.MajorImageVersion
+    res['MinorImageVersion'] = pe.OPTIONAL_HEADER.MinorImageVersion
+    res['MajorSubsystemVersion'] = pe.OPTIONAL_HEADER.MajorSubsystemVersion
+    res['MinorSubsystemVersion'] = pe.OPTIONAL_HEADER.MinorSubsystemVersion
+    res['SizeOfImage'] = pe.OPTIONAL_HEADER.SizeOfImage
+    res['SizeOfHeaders'] = pe.OPTIONAL_HEADER.SizeOfHeaders
+    res['CheckSum'] = pe.OPTIONAL_HEADER.CheckSum
+    res['Subsystem'] = pe.OPTIONAL_HEADER.Subsystem
+    res['DllCharacteristics'] = pe.OPTIONAL_HEADER.DllCharacteristics
+    res['SizeOfStackReserve'] = pe.OPTIONAL_HEADER.SizeOfStackReserve
+    res['SizeOfStackCommit'] = pe.OPTIONAL_HEADER.SizeOfStackCommit
+    res['SizeOfHeapReserve'] = pe.OPTIONAL_HEADER.SizeOfHeapReserve
+    res['SizeOfHeapCommit'] = pe.OPTIONAL_HEADER.SizeOfHeapCommit
+    res['LoaderFlags'] = pe.OPTIONAL_HEADER.LoaderFlags
+    res['NumberOfRvaAndSizes'] = pe.OPTIONAL_HEADER.NumberOfRvaAndSizes
