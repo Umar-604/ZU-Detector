@@ -123,3 +123,20 @@ def extract_infos(fpath):
     res['SectionsMeanVirtualsize'] = sum(virtual_sizes) / float(len(virtual_sizes))
     res['SectionsMinVirtualsize'] = min(virtual_sizes)
     res['SectionMaxVirtualsize'] = max(virtual_sizes)
+
+    # Imports
+    try:
+        res['ImportsNbDLL'] = len(pe.DIRECTORY_ENTRY_IMPORT)
+        imports = sum([x.imports for x in pe.DIRECTORY_ENTRY_IMPORT], [])
+        res['ImportsNb'] = len(imports)
+        res['ImportsNbOrdinal'] = 0
+    except AttributeError:
+        res['ImportsNbDLL'] = 0
+        res['ImportsNb'] = 0
+        res['ImportsNbOrdinal'] = 0
+
+    # Exports
+    try:
+        res['ExportNb'] = len(pe.DIRECTORY_ENTRY_EXPORT.symbols)
+    except AttributeError:
+        res['ExportNb'] = 0
