@@ -175,3 +175,22 @@ def extract_infos(fpath):
     except AttributeError:
         res['VersionInformationSize'] = 0
     return res
+
+
+if __name__ == '__main__':
+    # Load the classifier and features
+    clf = joblib.load('Classifier/classifier.pkl')
+    with open('Classifier/features.pkl', 'rb') as f:
+        features = pickle.load(f)
+
+    # Extracting features from the PE file mentioned in the argument
+    data = extract_infos(sys.argv[1])
+    print("Extracted features:", data.keys())
+
+    # Match the features and handle missing keys
+    pe_features = list(map(lambda x: data.get(x, 0), features))
+    print("Features used for classification: ", pe_features)
+
+    # Predict if the PE is malicious or not based on the extracted features
+    res = clf.predict([pe_features])[0]
+    print('The file %s is %s' % (os.path.basename(sys.argv[1]), ['malicious', 'legitimate'][res]))
