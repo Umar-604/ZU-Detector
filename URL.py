@@ -22,3 +22,8 @@ def improved_sanitization(url):
 
 # Filter URLs that are not in the whitelist
 s_url = [i for i in urls if i not in whitelist]
+
+# Classify the URL with probability prediction
+if len(s_url) == 0:
+    # If URL is in the whitelist, classify as "good"
+    predict = ['good']
