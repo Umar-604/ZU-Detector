@@ -19,3 +19,6 @@ def improved_sanitization(url):
         sub_tokens = part.replace('.', '-').split('-')
         tokens.extend([token for token in sub_tokens if token and token not in ['com', 'org', 'net']])
     return tokens
+
+# Filter URLs that are not in the whitelist
+s_url = [i for i in urls if i not in whitelist]
