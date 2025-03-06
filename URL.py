@@ -33,3 +33,11 @@ else:
         # Load the final model, which contains the vectorizer, SVD, and trained models
         with open("final_model.pkl", 'rb') as f1:
             final_model = pickle.load(f1)
+
+    
+    except FileNotFoundError:
+        print("Model file not found. Ensure the file is in the correct directory.")
+        exit()
+    except Exception as e:
+        print(f"An error occurred while loading the model: {e}")
+        exit()
