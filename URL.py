@@ -15,3 +15,7 @@ def improved_sanitization(url):
         url = url[4:]  # Remove 'www.'
     parts = url.split('/')
     tokens = []
+    for part in parts:
+        sub_tokens = part.replace('.', '-').split('-')
+        tokens.extend([token for token in sub_tokens if token and token not in ['com', 'org', 'net']])
+    return tokens
