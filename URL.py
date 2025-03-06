@@ -27,3 +27,9 @@ s_url = [i for i in urls if i not in whitelist]
 if len(s_url) == 0:
     # If URL is in the whitelist, classify as "good"
     predict = ['good']
+
+else:
+    try:
+        # Load the final model, which contains the vectorizer, SVD, and trained models
+        with open("final_model.pkl", 'rb') as f1:
+            final_model = pickle.load(f1)
