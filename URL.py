@@ -64,3 +64,7 @@ else:
 
     # Apply the same TruncatedSVD transformation
     x_reduced = svd.transform(x)  # Apply SVD for dimensionality reduction
+
+    # Get the class probabilities using predict_proba for both models
+    rf_proba = rf_model.predict_proba(x_reduced)
+    logreg_proba = logreg_model.predict_proba(x_reduced)
