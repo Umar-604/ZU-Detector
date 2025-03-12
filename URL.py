@@ -34,6 +34,19 @@ else:
         with open("final_model.pkl", 'rb') as f1:
             final_model = pickle.load(f1)
 
+        # Extract components from the pickle file
+        vectorizer = final_model['vectorizer']  # TF-IDF vectorizer
+        svd = final_model['svd']  # TruncatedSVD for dimensionality reduction
+        models = final_model['models']  # List of models (RandomForest, Logistic Regression)
+        
+        # Load the individual models
+        rf_model = models[0]  # Random Forest model
+        logreg_model = models[1]  # Logistic Regression model
+        
+        # Ensure models are loaded correctly
+        if not hasattr(rf_model, 'predict_proba') or not hasattr(logreg_model, 'predict_proba'):
+            raise TypeError("Models are not loaded correctly. Check their contents.")
+
     
     except FileNotFoundError:
         print("Model file not found. Ensure the file is in the correct directory.")
