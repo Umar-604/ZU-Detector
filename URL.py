@@ -54,3 +54,7 @@ else:
     except Exception as e:
         print(f"An error occurred while loading the model: {e}")
         exit()
+
+    # Apply sanitization to the URL before vectorization
+    sanitized_url = [improved_sanitization(url) for url in s_url]
+    sanitized_text = [' '.join(tokens) for tokens in sanitized_url]  # Join tokens for vectorization
