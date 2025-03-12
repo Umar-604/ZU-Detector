@@ -58,3 +58,6 @@ else:
     # Apply sanitization to the URL before vectorization
     sanitized_url = [improved_sanitization(url) for url in s_url]
     sanitized_text = [' '.join(tokens) for tokens in sanitized_url]  # Join tokens for vectorization
+
+    # Apply vectorizer transformation to sanitized URL
+    x = vectorizer.transform(sanitized_text)
