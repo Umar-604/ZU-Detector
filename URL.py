@@ -77,3 +77,6 @@ else:
 
         # Majority Voting: Pick the most common result between the models
         final_prediction.append(max([rf_pred, logreg_pred], key=[rf_pred, logreg_pred].count))
+
+    # Final prediction
+    predict = final_prediction
