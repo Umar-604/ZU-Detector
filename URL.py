@@ -27,13 +27,12 @@ s_url = [i for i in urls if i not in whitelist]
 if len(s_url) == 0:
     # If URL is in the whitelist, classify as "good"
     predict = ['good']
-
 else:
     try:
         # Load the final model, which contains the vectorizer, SVD, and trained models
         with open("final_model.pkl", 'rb') as f1:
             final_model = pickle.load(f1)
-
+        
         # Extract components from the pickle file
         vectorizer = final_model['vectorizer']  # TF-IDF vectorizer
         svd = final_model['svd']  # TruncatedSVD for dimensionality reduction
@@ -46,8 +45,7 @@ else:
         # Ensure models are loaded correctly
         if not hasattr(rf_model, 'predict_proba') or not hasattr(logreg_model, 'predict_proba'):
             raise TypeError("Models are not loaded correctly. Check their contents.")
-
-    
+        
     except FileNotFoundError:
         print("Model file not found. Ensure the file is in the correct directory.")
         exit()
