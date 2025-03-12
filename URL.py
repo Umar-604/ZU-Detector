@@ -68,3 +68,9 @@ else:
     # Get the class probabilities using predict_proba for both models
     rf_proba = rf_model.predict_proba(x_reduced)
     logreg_proba = logreg_model.predict_proba(x_reduced)
+
+    # Combine predictions from both models using majority voting
+    final_prediction = []
+    for rf_prob, logreg_prob in zip(rf_proba, logreg_proba):
+        rf_pred = 'bad' if rf_prob[1] > 0.5 else 'good'
+        logreg_pred = 'bad' if logreg_prob[1] > 0.5 else 'good'
