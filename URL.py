@@ -74,3 +74,6 @@ else:
     for rf_prob, logreg_prob in zip(rf_proba, logreg_proba):
         rf_pred = 'bad' if rf_prob[1] > 0.5 else 'good'
         logreg_pred = 'bad' if logreg_prob[1] > 0.5 else 'good'
+
+        # Majority Voting: Pick the most common result between the models
+        final_prediction.append(max([rf_pred, logreg_pred], key=[rf_pred, logreg_pred].count))
