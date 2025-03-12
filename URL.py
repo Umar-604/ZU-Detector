@@ -80,3 +80,6 @@ else:
 
     # Final prediction
     predict = final_prediction
+
+# Print the prediction result
+print("\nThe entered domain is classified as:", predict[0])
