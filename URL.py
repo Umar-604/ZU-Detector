@@ -61,3 +61,6 @@ else:
 
     # Apply vectorizer transformation to sanitized URL
     x = vectorizer.transform(sanitized_text)
+
+    # Apply the same TruncatedSVD transformation
+    x_reduced = svd.transform(x)  # Apply SVD for dimensionality reduction
